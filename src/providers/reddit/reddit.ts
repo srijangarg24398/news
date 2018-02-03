@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class RedditProvider {
   baseUrl:string;
   constructor(public http: HttpClient) {
-    console.log('Hello RedditProvider Provider');
+    // console.log('Hello RedditProvider Provider');
     this.baseUrl="https://www.reddit.com/r";
   }
   getPosts(category,limit){

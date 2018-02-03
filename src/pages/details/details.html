@@ -1,12 +1,46 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Details</ion-title>
+    <ion-title>{{item.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	This is details page
+	<ion-card>
+		<!-- <ng-template [ngIf]="item.preview.images.length > 0">
+			<img src="{{item.preview.images[0].source.url}}">
+		</ng-template> -->
+		<img *ngIf="item.preview.images.length > 0" src="{{item.preview.images[0].source.url}}">
+		<ion-card-content>
+			<ion-card-title>
+				{{item.title}}
+			</ion-card-title>
+			<ion-list>
+				<ion-item>
+					<ion-icon name="person" item-left></ion-icon>
+					Author
+					<ion-note item-right>
+						{{item.author}}
+					</ion-note>
+				</ion-item>
+				<ion-item>
+					<ion-icon name="thumbs-up" item-left></ion-icon>
+					Score
+					<ion-note item-right>
+						{{item.score}}
+					</ion-note>
+				</ion-item>
+				<ion-item>
+					<ion-icon name="chatboxes" item-left></ion-icon>
+					Comments
+					<ion-note item-right>
+						{{item.num_comments}}
+					</ion-note>
+				</ion-item>
+			</ion-list>			
+			<a ion-button block target="_blank" href="http://reddit.com/{{item.parmalink}}">View Original</a>
+		</ion-card-content>
+	</ion-card>
 </ion-content>

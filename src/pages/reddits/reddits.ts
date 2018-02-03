@@ -16,25 +16,47 @@ import { RedditProvider } from '../../providers/reddit/reddit';
   templateUrl: 'reddits.html',
 })
 export class RedditsPage {
-  items:any;
+  items:Object;
+  category:any;
+  limit:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private redditService:RedditProvider) {
+    this.getDefaults();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RedditsPage');
+    // console.log('ionViewDidLoad RedditsPage');
   }
 
 
   ngOnInit(){
-  	this.getPosts('sports',5);
+    this.getPosts(this.category,this.limit);
   }
+
   getPosts(category,limit){
   	this.redditService.getPosts(category,limit).subscribe(response=>{
-  		console.log(response)
+  		// console.log(response)
   		return this.items=response.data.children;
   	})
   }
+
   viewItem(item){
-  	this.navCtrl.push(DetailsPage ,item);
+  	this.navCtrl.push(DetailsPage ,{item:item});
+  }
+
+  getDefaults(){
+    if (localStorage.getItem('category')!=null){
+      this.category=localStorage.getItem('category');
+    }else{
+      this.category='entertainment';
+    }
+    if (localStorage.getItem('limit')!=null || localStorage.getItem('limit')!=undefined){
+      this.limit=parseInt(localStorage.getItem('limit'));
+    }else{
+      this.limit=5;
+    }  
+  }
+
+  changeCategory(){
+    this.getPosts(this.category,this.limit);
   }
 }
